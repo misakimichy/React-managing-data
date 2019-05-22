@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 
-// To Do:
-// Set and update state
-// Create a new question
-// Evaluate the answers
-
 class Game extends Component {
     constructor(props){
         super(props);
@@ -27,6 +22,7 @@ class Game extends Component {
         }));
     };
 
+    // Create a new question
     makeNewQuestions = () => {
         const value1 = Math.floor(Math.random() * 100);
         const value2 = Math.floor(Math.random() * 100);
@@ -35,24 +31,37 @@ class Game extends Component {
         return [value1, value2, value3, proposedAnswer];
     };
 
-    evaluateAnswer(properAnswer) {
+    // Evaluate the answers
+    evaluateAnswer(answer) {
         const { value1, value2, value3, proposedAnswer } = this.state;
         const properAnswer = value1 + value2 + value3;
 
         return (
-            (properAnswer === proposedAnswer) || (!properAnswer === proposedAnswer)
+            (properAnswer === proposedAnswer && answer == true) || 
+            (properAnswer !== proposedAnswer && answer == false)
         )
     };
 
+    // Add Onclick event
+    handleAnswer = event => {
+        const newValuesArray = this.makeNewQuestions();
+        this.updateState(newValuesArray);
+
+        const answerIsCorrect = this.evaluateAnswer(event.target.name);
+        this.props.handleAnswer(answerIsCorrect);
+    }
+
     render() {
-        
+        const { value1, value2, value3, proposedAnswer } = this.state;
         // Copy codes from App.js
         return (
-            <div className="equation">
-                <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
+            <div>
+                <div className="equation">
+                    <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
+                </div>
+                <button onClick={this.handleAnswer}>True</button>
+                <button onClick={this.handleAnswer}>False</button>
             </div>
-            <button>True</button>
-            <button>False</button>
         );
     }
 }
