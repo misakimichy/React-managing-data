@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Game from './Game.js';
-
-
-const numQuestions = 0;
-const numCorrect = 0;
+import Score from './Score.js';
 
 class App extends Component {
   state = {
+      numCorrect: 0,
       numQuestions: 0,
-      numCorrect: 0
   };
 
   handleAnswer = answerIsCorrect => {
@@ -37,9 +34,10 @@ class App extends Component {
           <Game
             handleAnswer={this.handleAnswer}
           />
-          <p className="text">
-            Your Score: {numCorrect}/{numQuestions}
-          </p>
+          <Score 
+            numCorrect={this.state.numCorrect}
+            numQuestions={this.state.numQuestions}
+          />
         </div>
       </div>
     );
