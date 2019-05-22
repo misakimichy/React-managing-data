@@ -6,14 +6,14 @@ import Score from './Score.js';
 
 class App extends Component {
   state = {
-      numCorrect: 0,
+      correctAnswer: 0,
       numQuestions: 0,
   };
 
   handleAnswer = answerIsCorrect => {
     if(answerIsCorrect) {
       this.setState(currentState => ({
-        numCorrect: currentState.CorrectAnswer + 1,
+        correctAnswer: currentState.correctAnswer + 1,
       }));
     }
     this.setState(currentState => ({
@@ -35,7 +35,7 @@ class App extends Component {
             handleAnswer={this.handleAnswer}
           />
           <Score 
-            numCorrect={this.state.numCorrect}
+            numCorrect={this.state.correctAnswer}
             numQuestions={this.state.numQuestions}
           />
         </div>
